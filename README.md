@@ -18,7 +18,7 @@ uv add frankfurter-api
 # Usage
 
 ```py
-from frankfurter-api import FrankfurterAPI
+from frankfurter_api import FrankfurterAPI
 
 frankfurter = FrankfurterAPI()
 

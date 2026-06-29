@@ -4,10 +4,21 @@ version = "0.0.1"
 description = "Simple Wrapper for the Frankfurter Currency API"
 readme = "README.md"
 authors = [{name = "Pixelic", email = "contact@pixelic.dev"}]
+license = "MIT"
+license-files = ["LICENSE"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+]
 requires-python = ">=3.13"
 dependencies = [
     "aiohttp>=3.0.0",
 ]
+
+[project.urls]
+Repository = "https://github.com/pixelicc/frankfurter-api"
+Issues = "https://github.com/pixelicc/frankfurter-api/issues"
 
 [dependency-groups]
 dev = [
