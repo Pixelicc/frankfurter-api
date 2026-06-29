@@ -1,29 +1,33 @@
-import asyncio
+import pytest
 from src.main import FrankfurterAPI
 
 
-async def main():
-    print("Initializing Frankfurter API...")
-    api = FrankfurterAPI()
-
-    try:
-        print("\nFetching currencies...")
-        currencies = await api.get_currencies()
-        usd_info = next((c for c in currencies if c.get("iso_code") == "USD"), None)
-        print(
-            f"Found {len(currencies)} currencies. (e.g. USD: {usd_info.get('name') if usd_info else 'Unknown'})"
-        )
-
-        base_currency = "USD"
-        target_currency = "EUR"
-        print(f"\nFetching exchange rate from {base_currency} to {target_currency}...")
-        rate_data = await api.get_rate(base=base_currency, target=target_currency)
-
-        print(f"Rate Data: {rate_data}")
-
-    except Exception as error:
-        print(f"An error occurred: {error}")
+@pytest.fixture
+def api():
+    """Fixture to initialize the FrankfurterAPI."""
+    return FrankfurterAPI()
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+@pytest.mark.asyncio
+async def test_get_currencies(api):
+    """Test fetching currencies."""
+    currencies = await api.get_currencies()
+
+    assert isinstance(currencies, list)
+    assert len(currencies) > 0
+
+    usd_info = next((c for c in currencies if c.get("iso_code") == "USD"), None)
+    assert usd_info is not None
+    assert usd_info.get("name") == "United States Dollar"
+
+
+@pytest.mark.asyncio
+async def test_get_rate(api):
+    """Test fetching the exchange rate between USD and EUR."""
+    rate_data = await api.get_rate(base="USD", target="EUR")
+
+    assert isinstance(rate_data, dict)
+    assert rate_data.get("base") == "USD"
+    assert rate_data.get("quote") == "EUR"
+    assert "rate" in rate_data
+    assert isinstance(rate_data.get("rate"), (int, float))
