@@ -1,9 +1,9 @@
 # frankfurter-api - Simple Wrapper for the Fankfurter Currency API
 
 
-![PyPI Downloads](https://img.shields.io/pypi/dm/frankfurter-api)
-![PyPI Version](https://img.shields.io/pypi/v/frankfurter-api)
-![PyPI License](https://img.shields.io/pypi/l/frankfurter-api)
+![PyPI Downloads](https://img.shields.io/pypi/dm/frankfurter_api)
+![PyPI Version](https://img.shields.io/pypi/v/frankfurter_api)
+![PyPI License](https://img.shields.io/pypi/l/frankfurter_api)
 
 # Installation 
 
