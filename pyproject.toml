@@ -1,0 +1,10 @@
+[project]
+name = "frankfurter-api"
+version = "0.0.1"
+description = "Simple Wrapper for the Frankfurter Currency API"
+readme = "README.md"
+authors = [{name = "Pixelic", email = "contact@pixelic.dev"}]
+requires-python = ">=3.13"
+dependencies = [
+    "aiohttp>=3.0.0",
+]
