@@ -1,10 +1,25 @@
-from typing import Any
+from typing import Any, TypedDict
 
 import aiohttp
 
 
 class FrankfurterAPIError(Exception):
     """Raised when the Frankfurter API request fails."""
+
+
+class CurrencyResponse(TypedDict):
+    iso_code: str
+    iso_numeric: str
+    name: str
+    symbol: str
+    start_date: str
+    end_date: str
+
+class ExchangeRateResponse(TypedDict):
+    date: str
+    base: str
+    quote: str
+    rate: float
 
 
 class FrankfurterAPI:
@@ -17,7 +32,7 @@ class FrankfurterAPI:
     def __init__(self, timeout: int = 10):
         self.timeout = aiohttp.ClientTimeout(total=timeout)
 
-    async def get_currencies(self) -> list[dict[str, Any]]:
+    async def get_currencies(self) -> list[CurrencyResponse]:
         """
         Fetches the list of available currencies.
 
@@ -27,7 +42,7 @@ class FrankfurterAPI:
         url = f"{self.BASE_URL}/currencies"
         return await self._request(url)
 
-    async def get_rate(self, base: str, target: str) -> dict[str, Any]:
+    async def get_rate(self, base: str, target: str) -> ExchangeRateResponse:
         """
         Fetches the exchange rate between the base currency and the target currency.
 
