@@ -1,5 +1,5 @@
 import aiohttp
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 
 class FrankfurterAPI:

@@ -1,5 +1,5 @@
 import pytest
-from src.main import FrankfurterAPI
+from frankfurter_api import FrankfurterAPI
 
 
 @pytest.fixture

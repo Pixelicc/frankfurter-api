@@ -124,8 +124,8 @@ wheels = [
 
 [[package]]
 name = "frankfurter-api"
-version = "0.0.1"
-source = { virtual = "." }
+version = "0.0.2"
+source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },
 ]
