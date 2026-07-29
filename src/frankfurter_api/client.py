@@ -1,5 +1,10 @@
+from typing import Any
+
 import aiohttp
-from typing import Any, Dict, List
+
+
+class FrankfurterAPIError(Exception):
+    """Raised when the Frankfurter API request fails."""
 
 
 class FrankfurterAPI:
@@ -12,7 +17,7 @@ class FrankfurterAPI:
     def __init__(self, timeout: int = 10):
         self.timeout = aiohttp.ClientTimeout(total=timeout)
 
-    async def get_currencies(self) -> List[Dict[str, Any]]:
+    async def get_currencies(self) -> list[dict[str, Any]]:
         """
         Fetches the list of available currencies.
 
@@ -22,7 +27,7 @@ class FrankfurterAPI:
         url = f"{self.BASE_URL}/currencies"
         return await self._request(url)
 
-    async def get_rate(self, base: str, target: str) -> Dict[str, Any]:
+    async def get_rate(self, base: str, target: str) -> dict[str, Any]:
         """
         Fetches the exchange rate between the base currency and the target currency.
 
@@ -38,11 +43,10 @@ class FrankfurterAPI:
 
     async def _request(self, url: str) -> Any:
         try:
-            async with aiohttp.ClientSession(timeout=self.timeout) as session:
-                async with session.get(url) as response:
-                    response.raise_for_status()
-                    return await response.json()
+            async with aiohttp.ClientSession(timeout=self.timeout) as session, session.get(url) as response:
+                response.raise_for_status()
+                return await response.json()
         except aiohttp.ClientResponseError as error:
-            raise Exception(f"HTTP Error {error.status}: {error.message}") from error
+            raise FrankfurterAPIError(f"HTTP Error {error.status}: {error.message}") from error
         except aiohttp.ClientError as error:
-            raise Exception(f"Request Error: {error}") from error
+            raise FrankfurterAPIError(f"Request Error: {error}") from error
